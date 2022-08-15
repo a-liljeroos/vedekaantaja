@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/vedekaantaja/static/css/main.b8140eae.css",
-    "main.js": "/vedekaantaja/static/js/main.dbdfe91b.js",
+    "main.css": "/vedekaantaja/static/css/main.3255aebb.css",
+    "main.js": "/vedekaantaja/static/js/main.951983dc.js",
     "static/js/27.f942e4ae.chunk.js": "/vedekaantaja/static/js/27.f942e4ae.chunk.js",
     "index.html": "/vedekaantaja/index.html"
   },
   "entrypoints": [
-    "static/css/main.b8140eae.css",
-    "static/js/main.dbdfe91b.js"
+    "static/css/main.3255aebb.css",
+    "static/js/main.951983dc.js"
   ]
 }
