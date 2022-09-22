@@ -7,6 +7,10 @@ import { GrStatusDisabledSmall } from "react-icons/gr";
 import { RiFolderInfoLine } from "react-icons/ri";
 import { CgClose } from "react-icons/cg";
 import { getRandomArbitrary } from "./DataProcessors/metadata/metadata";
+import {
+  InterfaceLanguage,
+  languages,
+} from "./DataProcessors/metadata/languages";
 
 function App() {
   const [firstTextAreaValue, setFirstTextAreaValue] = useState("");
@@ -128,6 +132,19 @@ function App() {
     setSecondTextAreaValue("");
   };
 
+  const [currentLang, setCurrentLang] = useState<InterfaceLanguage>(
+    languages[0]
+  );
+
+  const changeLanguage = (language: string) => {
+    languages.filter((lang, idx) => {
+      if (language === lang.language) {
+        setCurrentLang(lang);
+        return;
+      }
+    });
+  };
+
   //---------------------------------------------------------------------
   // Info
   //---------------------------------------------------------------------
@@ -152,9 +169,65 @@ function App() {
     }
   };
 
+  const InfoContainer = () => {
+    return (
+      <>
+        <div className="info-container">
+          <div className="info-text-container">
+            <p className="info-text">
+              {currentLang.back.box1}{" "}
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://fi.wikipedia.org/wiki/Vedekieli"
+              >
+                Wikipedia
+              </a>
+              .
+            </p>
+            <p className="info-text">{currentLang.back.box2}</p>
+            <p className="info-text">
+              {currentLang.back.box3}{" "}
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis#browser_compatibility"
+              >
+                {currentLang.back.moreInfo}
+              </a>
+              .
+            </p>
+          </div>
+
+          <h5 className="source-code-text">{currentLang.back.sourceButton}</h5>
+          <a
+            className="source-code-link"
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/a-liljeroos/vedekaantaja"
+          >
+            <button className="source-code-btn">GitHub</button>
+          </a>
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       <main>
+        <div className="language-selector">
+          {languages.map((lang, idx) => (
+            <img
+              onClick={() => {
+                changeLanguage(lang.language);
+              }}
+              className="language-button"
+              src={lang.flag}
+              alt=""
+            />
+          ))}
+        </div>
         <div className="machine">
           {flipMachine ? (
             <div className="front-side">
@@ -184,10 +257,13 @@ function App() {
                       <div className="pixels" />
 
                       {switchMode ? (
-                        <h4>TAVUTUS (KOKEELLINEN)</h4>
+                        <h4>{currentLang.front.mode.hyphenate}</h4>
                       ) : (
                         <>
-                          <h4>VEDEKIELI{" - " + currentVoiceLang} </h4>
+                          <h4>
+                            {currentLang.front.mode.vedelang}
+                            {" - " + currentVoiceLang}{" "}
+                          </h4>
                         </>
                       )}
                     </div>
@@ -196,7 +272,9 @@ function App() {
               </div>
               <form onSubmit={(e) => e.preventDefault()}>
                 <div className="button-container">
-                  <button onClick={() => emptyTextField()}>Tyhjennä</button>
+                  <button onClick={() => emptyTextField()}>
+                    {currentLang.front.emptyButton}
+                  </button>
                   <div className="button-group-voice">
                     <button
                       onClick={() => speakVoice()}
@@ -246,7 +324,7 @@ function App() {
                   </div>
                 </div>
                 <textarea
-                  placeholder="Kirjoita jotain..."
+                  placeholder={currentLang.front.textInput}
                   spellCheck={false}
                   cols={30}
                   rows={8}
@@ -277,51 +355,3 @@ function App() {
 }
 
 export default App;
-
-const InfoContainer = () => {
-  return (
-    <>
-      <div className="info-container">
-        <div className="info-text-container">
-          <p className="info-text">
-            Vedekieli tai vedenkieli on leikkikieli, joka oli yleinen
-            erityisesti 1950-luvun Helsingissä. Lue lisää:{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://fi.wikipedia.org/wiki/Vedekieli"
-            >
-              Wikipedia
-            </a>
-            .
-          </p>
-          <p className="info-text">
-            Äänivaihtoehtojen määrä vaihtelee selaimen mukaan.
-          </p>
-          <p className="info-text">
-            Puhesyntetisaattori ei välttämättä toimi vanhemmilla
-            selainversioilla.{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis#browser_compatibility"
-            >
-              Lisätietoa
-            </a>
-            .
-          </p>
-        </div>
-
-        <h5 className="source-code-text">Lähdekoodi</h5>
-        <a
-          className="source-code-link"
-          target="_blank"
-          rel="noreferrer"
-          href="https://github.com/a-liljeroos/vedekääntäjä"
-        >
-          <button className="source-code-btn">GitHub</button>
-        </a>
-      </div>
-    </>
-  );
-};

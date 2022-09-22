@@ -70,7 +70,7 @@ main {
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
   border-bottom: 20px solid rgb(112, 90, 101);
-
+  box-shadow: 0px 2px 5px rgba(15, 0, 24, 0.658);
   @media (max-width: 504px) {
     width: 94vw;
   }
@@ -99,6 +99,27 @@ main {
   z-index: -1;
   border: 20px solid rgb(235, 227, 231);
   border-radius: 50px;
+}
+
+.language-selector {
+  padding: 10px;
+  background: rgb(201, 179, 207);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  gap: 10px;
+  transform: translateY(-15px) translateX(80px);
+}
+
+.language-button {
+  height: 30px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.language-button:focus,
+.language-button:active {
+  outline: 2px solid rgb(99, 99, 99);
 }
 
 .result-container {
